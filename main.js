@@ -274,29 +274,39 @@ function getCookie(cookieName) {
 }
 
  function sendMail2(){
-    var templateParams1 = {
-        email: getCookie("inmail"),
-        notes: 'Check this out!'
-    };
-     
+    
 
-    emailjs.send('service_7q1sn6s', 'template_v7f98gs', templateParams1)
-    .then(function(res){
-        // console.log("Success", res.status);
-        alert("mail sent successfully");
-    })
-}
-function sendMail1(){
-    var templateParams2 = {
-        name: document.getElementById('inmail').value,
-        notes: 'Check this out!'
-    };
-     
-    emailjs.send('service_7q1sn6s', 'template_ogw30ms', templateParams2)
-    .then(function(res){
-        // console.log("Success", res.status);
-        alert("mail sent successfully");
-    })
+    document.cookie = "inemail = " + document.getElementById('inmail').value;
+    $.ajax({
+        url: 'forgot.php',
+        type: 'post',
+        success: function(response){
+            console.log(typeof(response));
+            if(response == "Invalid details"){
+                alert("Invalid Details");
+            }
+            else{
+
+                console.log(response);
+                var obj = JSON.parse(response);
+
+                var param_template = {
+                    email: "princesscandy11111@gmail.com", //obj.email,
+                    col_password: obj.col_password,
+                    pic_password: obj.pic_password,
+                    username: obj.username
+                };
+                
+                //alert("Email sent sucessfully");
+                emailjs.send("service_upx3vuo","template_ck2qnue", param_template,"Baq_UpajCi0C9GpCR");
+            }
+        },
+        error: function(response){
+            alert("error!!");
+        }
+    }); 
+
+    
 }
 
 function NewTab() {
