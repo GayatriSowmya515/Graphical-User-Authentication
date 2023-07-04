@@ -22,7 +22,7 @@
 
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="signup.php" method="POST">
+			<form action="signup-pdo.php" method="POST">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -52,11 +52,11 @@
 					<div class="passimg" onclick="upimg(this)" id="s14"><img src="images\23.png" alt="" class="patimg"></div>
 					<div class="passimg" onclick="upimg(this)" id="s15"><img src="images\24.png" alt="" class="patimg"></div>
 				</div>
-				<a href="#" id="signupbtn" onclick="signup()" formmethod="post" formaction="signup.php">Sign Up</a>
+				<a href="#" id="signupbtn" onclick="signup()" formmethod="post" formaction="signup-pdo.php">Sign Up</a>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="signin-1.php" method = "POST">
+			<form action="signin-1-pdo.php" method = "POST">
 				<h1>Sign in</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -85,11 +85,11 @@
 				</div>
 			
 				<a  onclick="sendMail2()">Forgot your password?</a>
-				<a href="#" class="spinbtn" id = "signInContinue" onclick="signincontinue()" formmethod="post" formaction="signin-1.php">Continue Sign In</a>
+				<a href="#" class="spinbtn" id = "signInContinue" onclick="signincontinue()" formmethod="post" formaction="signin-1-pdo.php">Continue Sign In</a>
 			</form>
 		</div>
 		<div class="form-container sign-in-2-container">
-			<form action="signin-2.php" action="POST">
+			<form action="signin-2-pdo.php" action="POST">
 			<div id="wrapper">
             
 				<div id="wheel">
@@ -129,7 +129,7 @@
 			</div>
 			<input type="password" name="sign-in-password" id="inpassword" placeholder="Password">
 			<a  onclick="sendMail2()">Forgot your password?</a>
-			<a href="#" id = "signIn" onclick="signin()" formmethod="post" formaction="signin-2.php">Sign In</a>
+			<a href="#" id = "signIn" onclick="signin()" formmethod="post" formaction="signin-2-pdo.php">Sign In</a>
 			
 			<!-- <button onclick="signin()">Sign In</button> -->
 			</form>
@@ -139,7 +139,7 @@
 				<div class="overlay-panel overlay-left">
 					<h1>Hi👋,there!</h1>
 					<p>Enter your personal details and start journey with us</p>
-					<button class="ghost" id="signIn">Sign In</button>
+					<button class="ghost" id="signIn1">Sign In</button>
 				</div>
 				<div class="overlay-panel overlay-right">
 					<h1>Welcome Back!</h1>

@@ -34,6 +34,7 @@ else{
     else{
         $row = $result->fetch_assoc();
         
+    
         $return_arr = array("col_password" => $row["col_password"],
                 "pic_password" =>  $row["pic_password"],
                 "email" => $row["email"],

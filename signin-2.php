@@ -66,6 +66,7 @@ else{
             $cookie_name11 = "username123";
             $cookie_value11 = $row["username"];
             setcookie($cookie_name11, $cookie_value11);
+            $_SESSION['userLogin1'] = "Loggedin";
             echo "succesfully logged in";
             // $return_arr = array("col_password" => $row["col_password"],
             //         "pic_password" => $pic_password,

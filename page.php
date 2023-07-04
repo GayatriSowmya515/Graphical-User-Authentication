@@ -1,5 +1,10 @@
 <?php
 $username = $_COOKIE['username123'];
+// session_start();
+// if(empty($_SESSION['userLogin1']) || $_SESSION['userLogin1'] == ''){
+//     header("Location: http://localhost:3000");
+//     die();
+// }
 ?>
 
 <!DOCTYPE html>

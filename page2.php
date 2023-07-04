@@ -4,6 +4,12 @@ $color1 = $_COOKIE['color1'];
 $color2 = $_COOKIE['color2'];
 $color3 = $_COOKIE['color3'];
 $color4 = $_COOKIE['color4'];
+
+// session_start();
+// if(empty($_SESSION['userLogin']) || $_SESSION['userLogin'] == ''){
+//     header("Location: http://localhost:3000");
+//     die();
+// }
 ?>
 
 <!DOCTYPE html>

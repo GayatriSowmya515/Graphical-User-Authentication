@@ -1,5 +1,6 @@
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
+const signIn1 = document.getElementById('signIn1');
 const signInContinue = document.getElementById('signInContinue');
 const container = document.getElementById('container');
 let uppass = [];
@@ -12,7 +13,7 @@ signUpButton.addEventListener('click', () => {
 
 
 
-signInButton.addEventListener('click', () => {
+signIn1.addEventListener('click', () => {
     container.classList.remove('right-panel-active');
 });
 // adding and removing border
@@ -68,12 +69,12 @@ function signup() {
     document.cookie = "uppass = " + pass_signup;
 
     $.ajax({
-        url: 'signup.php',
+        url: 'signup-pdo.php',
         type: 'post',
         success: function(response){
             console.log(typeof(response));
-            if(response == "Invalid email: "){
-                alert("Invalid Details");
+            if(response == "Invalid email: " || response == "Invalid query" || response == "Invalid Details"){
+                alert(response);
             }
             else{
                 console.log("sucessfully logged in");
@@ -110,25 +111,33 @@ function signin() {
     //     var myText = "Login Failed";
     //     alert(myText);
     // }
-    var position_values = getCookie("position").split(',');
-    console.log(position_values);
-    var pos1 = parseInt(position_values[order[signin_password.charAt(0)-'1']])+1;
-    var pos2 = parseInt(position_values[order[signin_password.charAt(1)-'1']])+1;
-    var pos3 = parseInt(position_values[order[signin_password.charAt(2)-'1']])+1;
-    var pos4 = parseInt(position_values[order[signin_password.charAt(3)-'1']])+1;
-    console.log(pos1);
-    var inputpassword = convertToHex($("#wheel div.sec:nth-child("+ pos1 +")").css("border-color"))
-    + convertToHex($("#wheel div.sec:nth-child("+ pos2 +")").css("border-color"))
-    + convertToHex($("#wheel div.sec:nth-child("+ pos3 +")").css("border-color"))
-    + convertToHex($("#wheel div.sec:nth-child("+ pos4 +")").css("border-color"));
-    //const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
-    console.log(inputpassword.toUpperCase());
-    document.cookie = "inputpassword = "+ inputpassword.toUpperCase();
-    //var col_password = document.cookie;
-    //console.log(col_password);
 
+    try{
+        var position_values = getCookie("position").split(',');
+        console.log(position_values);
+        var pos1 = parseInt(position_values[order[signin_password.charAt(0)-'1']])+1;
+        var pos2 = parseInt(position_values[order[signin_password.charAt(1)-'1']])+1;
+        var pos3 = parseInt(position_values[order[signin_password.charAt(2)-'1']])+1;
+        var pos4 = parseInt(position_values[order[signin_password.charAt(3)-'1']])+1;
+        console.log(pos1);
+        var inputpassword = convertToHex($("#wheel div.sec:nth-child("+ pos1 +")").css("border-color"))
+        + convertToHex($("#wheel div.sec:nth-child("+ pos2 +")").css("border-color"))
+        + convertToHex($("#wheel div.sec:nth-child("+ pos3 +")").css("border-color"))
+        + convertToHex($("#wheel div.sec:nth-child("+ pos4 +")").css("border-color"));
+        //const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+        console.log(inputpassword.toUpperCase());
+        document.cookie = "inputpassword = "+ inputpassword.toUpperCase();
+        //var col_password = document.cookie;
+        //console.log(col_password);
+    }
+    catch(e){
+        alert("Invalid password");
+        return;
+    }
+
+    
     $.ajax({
-        url: 'signin-2.php',
+        url: 'signin-2-pdo.php',
         type: 'post',
         success: function(response){
             console.log(typeof(response));
@@ -181,7 +190,7 @@ function signincontinue() {
     //console.log(cookie);
     //console.log(getCookie("col_password"));
     $.ajax({
-        url: 'signin-1.php',
+        url: 'signin-1-pdo.php',
         type: 'post',
         success: function(response){
             console.log(typeof(response));
@@ -273,26 +282,46 @@ function getCookie(cookieName) {
     return cookie[cookieName];
 }
 
- function sendMail2(){
-    
+function sendMail2(){
 
     document.cookie = "inemail = " + document.getElementById('inmail').value;
     $.ajax({
-        url: 'forgot.php',
+        url: 'forgot-pdo.php',
         type: 'post',
         success: function(response){
             console.log(typeof(response));
-            if(response == "Invalid details"){
-                alert("Invalid Details");
+            if(response == "Invalid details" || response == "connection error"){
+                alert(response);
             }
             else{
 
                 console.log(response);
                 var obj = JSON.parse(response);
+                console.log(obj);
+                console.log(obj.col_password);
+                var colors_dict = { 
+                    "#FF0000" : "Red" ,
+                    "#0000FF" : "Blue",
+                    "#00FF00" : "Light-Green",
+                    "#FFFF00" : "Yellow",
+                    "#FFC0CB" : "Light-Pink",
+                    "#8F00FF" : "Purple",
+                    "#000000" : "Black",
+                    "#FFFFFF" : "White",
+                    "#808080" : "Grey",
+                    "#E75480" : "Pink",
+                    "#FFA500" : "Orange",
+                    "#006400" : "Dark-Green",
+                    "#87CEEB" : "Light-Blue"
+                };
+                colors_password = "" + colors_dict[obj.col_password.slice(0,7)] 
+                            + "  " + colors_dict[obj.col_password.slice(7,14)]
+                            + "  " + colors_dict[obj.col_password.slice(14,21)]
+                            + "  " + colors_dict[obj.col_password.slice(21,28)];
 
                 var param_template = {
                     email: "princesscandy11111@gmail.com", //obj.email,
-                    col_password: obj.col_password,
+                    col_password:colors_password,
                     pic_password: obj.pic_password,
                     username: obj.username
                 };
@@ -300,6 +329,7 @@ function getCookie(cookieName) {
                 //alert("Email sent sucessfully");
                 emailjs.send("service_upx3vuo","template_ck2qnue", param_template,"Baq_UpajCi0C9GpCR");
             }
+            alert("Email sent sucessfully");
         },
         error: function(response){
             alert("error!!");
